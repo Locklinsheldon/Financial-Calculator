@@ -18,5 +18,5 @@ def financial_info_main():
         else:
             print('\nIncorrect option, try again.')
 
-if __name__ == '__financial_info_main__':
+if __name__ == '__main__':
     financial_info_main()

@@ -38,7 +38,7 @@ def expense(): #The income function
                     date = now.strftime("%Y-%m-%d")
 
                     # Append the new income entry (Date, Money, Reason)
-                    new_entry = [f"Date: {date}, Money: {new_expense}, Reason: {reason}"]
+                    new_entry = [f"Date: {date}, Money: -{new_expense}, Reason: {reason}"]
                     file.append(new_entry)  # Add the new entry to the list
 
                     # Now write everything back to the file (updated money and new entry)
@@ -62,6 +62,3 @@ def expense(): #The income function
         print("An error occurred while trying to read or write the file.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
-# Run the function
-expense()
