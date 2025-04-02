@@ -5,10 +5,11 @@ import csv
 def set_goals():
     try:
         goal_for = input("enter what what you want the name of this goal to be: ")
-        goal_is = int(input("enter what you want the goal to be"))
+        goal_is = float(input("enter what you want the goal to be"))
+        goal = [goal_for, goal_is, 0]
         with open("my_part/limits.csv", "a", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow(goal_for, goal_is, 0)
+            writer.writerow(goal)
     except:
         print("you must enter a number")
         set_goals()
@@ -23,7 +24,7 @@ def advance_goals():
 
     try:
         wanted_goal_name = input("enter what the name of the goal you want to put money towards: ")
-        amount = float(input("enter the amount you want to put towards the goal"))
+        amount = float(input("enter the amount you want to put towards the goal: "))
 
         amount = round(amount, 2)
     
@@ -36,13 +37,13 @@ def advance_goals():
         if found == 0:
             print("no goal was found with the name", wanted_goal_name)
         
-        with open("my_part/limits.csv", "w", newline="") as file:
+        with open("my_part/goals.csv", "w", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow("")
         for item in goals:
-            with open("my_part/limits.csv", "a", newline="") as file:
+            with open("my_part/goals.csv", "a", newline="") as file:
                 writer = csv.writer(file)
-                writer.writerow(item[0], item[1], item[2])
+                writer.writerow(item)
     except:
         print("you must enter a number")
         advance_goals()
@@ -50,10 +51,10 @@ def advance_goals():
 def track_goals():
     goals = []
 
-    with open("my_part/limits.csv", "r", newline="") as file:
+    with open("my_part/goals.csv", "r", newline="") as file:
         reader = csv.reader(file)
         for row in reader:
-            goals.append([row[0],row[1],row[2]])
+            goals.append([row[0],float(row[1]),float(row[2])])
     
     for item in goals:
         gap = item[1] - item[2]

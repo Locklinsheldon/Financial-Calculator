@@ -7,10 +7,11 @@ def set_limits():
         num_limits = int(input("enter the number of limits you want to set: "))
         for x in range(num_limits):
             limit_for = input("enter what expence this limit is for: ")
-            limit_is = int(input("enter what you want the limit to be"))
+            limit_is = float(input("enter what you want the limit to be: "))
+            limit = [limit_for,limit_is]
             with open("my_part/limits.csv", "a", newline="") as file:
                 writer = csv.writer(file)
-                writer.writerow(limit_for, limit_is)
+                writer.writerow(limit)
     except:
         print("you must enter a number")
         set_limits()
@@ -21,14 +22,14 @@ def compare_limits():
     with open("my_part/limits.csv", "r", newline="") as file:
         reader = csv.reader(file)
         for row in reader:
-            limits.append([row[0],row[1]])
+            limits.append([row[0],float(row[1])])
     
     expenses = []
 
     with open("my_part/expenses.csv", "r", newline="") as file:
         reader = csv.reader(file)
         for row in reader:
-            expenses.append([row[0],row[1]])
+            expenses.append([row[0],float(row[1])])
     
     for limit in limits:
         found = 0
