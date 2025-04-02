@@ -4,17 +4,16 @@ def display_csv():
     try:
         # Open the CSV file in read mode
         with open('money_tracking.csv', 'r', newline='') as csvfile:
-            file = csv.reader(csvfile)
-            print(f'Money: {(", ".join(next(file)))}')
-            list(file)
-
-            if len(file) == 1:
-                print('There is nothing in the file to print except for the money.')
+            file = list(csv.reader(csvfile))  # Read all rows into a list
+            
+            # Check if the file has only one row and that it only has the money value in the first column
+            if len(file) == 1 and len(file[0]) == 1:
+                print(f'Money: {file[0][0]}')  # Display the money value
             else:
-                # Print each row in the CSV
                 print("File contents:")
                 for row in file:
                     print(", ".join(row))  # Join elements of the row and print them without brackets
+
     except FileNotFoundError:
         print("The file doesn't exist.")
     except Exception as e:

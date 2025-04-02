@@ -62,6 +62,3 @@ def income(): #The income function
         print("An error occurred while trying to read or write the file.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
-# Run the function
-income()
