@@ -11,24 +11,28 @@ def pie_charts(expense): #Charts the given data based on expense category into a
     if expense == 9:
         label = 'Budgeting'
         categories = ['Savings', 'House', 'Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone', 'Pet']
-        one, two, three, four, five, six, seven, eight, nine = get_info()
+        one, two, three, four, five, six, seven, eight, nine = result
         expenses = [one, two, three, four, five, six, seven, eight, nine]
     elif expense == 6:
         label = 'Services'
         categories = ['Utilities' ,'Insurance', 'food', 'Entertainment','Healthcare','Phone']
-        one, two, three, four, five, six = get_info()
+        one, two, three, four, five, six = result
         expenses = [one, two, three, four, five, six]
     elif expense == 12:
         label = 'All'
         categories = ['Checkings','Salary','Goal','Savings', 'House', 'Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone', 'Pet']
-        one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve = get_info()
+        one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve = result
         expenses = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
+    else: #error handling
+        print("Unexpected error occured, cannot create pie chart.")
+        return
     
     # Plotting the pie chart
     fig, ax = plt.subplots()
     ax.pie(expenses, labels=categories, autopct='%1.2f%%') #Makes pie charts and displays the percentages up to the 2nd decimal.
     plt.title(f"Expense: {label}")
     plt.show()
+    return
 
 
 def get_info(): #Gathers info from the user on what kind of things they would like
