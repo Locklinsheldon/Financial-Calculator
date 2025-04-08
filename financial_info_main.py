@@ -19,6 +19,3 @@ def financial_info_main():
             break
         else:
             print('\nIncorrect option, try again.')
-
-if __name__ == '__main__':
-    financial_info_main()

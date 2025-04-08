@@ -8,8 +8,13 @@ def view_asset(): #Allows the user to pick a row and view the assest they would 
         file = csv.reader(csvfile)
         rows = []
         
-        for i, line in enumerate(file):
-            print(f'{i+1}: {line[0]}')
+        i = 0
+        for line in file:
+            if not line:
+                continue
+
+            i+=1
+            print(f'{i}: {line[0]}')
             rows.append(line)
 
         try:
@@ -108,4 +113,3 @@ def create_new_account(): #Creates new account for the user
         writer.writerow([user, password, checkings, salary, goal, savings, house, utilities, insurance, food, entertainment, healthcare, phone, pet])
 
     print('account created!\n')
-    return
