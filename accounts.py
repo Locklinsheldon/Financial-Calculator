@@ -13,20 +13,25 @@ def view_asset(): #Allows the user to pick a row and view the assest they would 
             rows.append(line)
 
         try:
-            row = int(input('\nEnter the number that corresponds with the username you want: '))
-            if 0 <= row < len(rows):
-                account_pass = input(f'What is the password of {row[0]}?: ')
+            row_selection = int(input('\nEnter the number that corresponds with the username you want: '))
+            if 0 <= row_selection-1 < len(rows):
+                account_pass = input(f'What is the password of {rows[row_selection-1][0]}?: ')
 
-                if account_pass == row[1]:
+                if account_pass == rows[row_selection-1][1]:
                     print('Correct password!')
                 else:
                     print('Incorrect password.')
+                    return
             else:
                 print('Invalid number.')
+                return
 
         except ValueError:
-            print('Type a number please.')
+            print('Type a number next time please.')
+            return
     
+    row = rows[row_selection-1]
+
     assets = {
         "Checkings": row[2],
         "Salary": row[3],
@@ -98,7 +103,7 @@ def create_new_account(): #Creates new account for the user
         print("Please pick valid numbers!! ")
         return
 
-    with open('finacial_data.csv', 'a') as file: #Use a instead of w so it doesn't delete all of our data
+    with open('financial_data.csv', 'a') as file: #Use a instead of w so it doesn't delete all of our data
         writer = csv.writer(file)
         writer.writerow([user, password, checkings, salary, goal, savings, house, utilities, insurance, food, entertainment, healthcare, phone, pet])
 

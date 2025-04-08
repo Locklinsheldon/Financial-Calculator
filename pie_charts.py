@@ -115,8 +115,3 @@ def get_info():
     else:
         print('Invalid input.')
         return None
-
-
-# Optional: run pie_charts automatically
-if __name__ == "__main__":
-    pie_charts()

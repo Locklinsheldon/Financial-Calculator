@@ -5,13 +5,13 @@ from accounts import create_new_account
 from financial_info_main import financial_info_main
 from goals import goal_managment
 from limits import limit_managment
-from pie_charts import 
+from pie_charts import pie_charts
 
 
 def main():
-    print('This is a financial Calculator which can do a ton of things.\n')
+    print('This is a financial Calculator which can do a ton of things.')
     while True:
-        choice = input('Which one would you like to do?:\n\n1. Accounts\n2. Financial Information (Income and Expenses)\n3. Goals\n4. Money Limits\n5. View Pie Charts of Your Data\n6. Exit the program.\n\n(1-6): ')
+        choice = input('\nWhich one would you like to do?:\n\n1. Accounts\n2. Financial Information (Income and Expenses)\n3. Goals\n4. Money Limits\n5. View Pie Charts of Your Data\n6. Exit the program.\n\n(1-6): ')
 
         if choice == '1':
             while True:
@@ -30,4 +30,13 @@ def main():
             goal_managment()
         elif choice == '4':
             limit_managment()
-        
+        elif choice == '5':
+            pie_charts()
+        elif choice == '6':
+            print('Thanks for using the program, have a nice day.')
+            break
+        else:
+            print('Incorrect option, try again.')
+
+if __name__ == '__main__':
+    main()
