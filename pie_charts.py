@@ -26,7 +26,7 @@ def pie_charts(expense): #Charts the given data based on expense category into a
     
     # Plotting the pie chart
     fig, ax = plt.subplots()
-    ax.pie(expenses, labels=categories, autopct='%1.2f%%')
+    ax.pie(expenses, labels=categories, autopct='%1.2f%%') #Makes pie charts and displays the percentages up to the 2nd decimal.
     plt.title(f"Expense: {label}")
     plt.show()
 

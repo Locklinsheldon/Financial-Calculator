@@ -50,7 +50,7 @@ def view_asset(row): #Allows the user to pick a row and view the assest they wou
             print(f"{asset}: ${value}")
     else:
         print("Please choose a valid input. (Make sure you are picking the corresponding numbers)")
-    time.sleep(3) #Pauses code executing for 3 seconds
+    time.sleep(2) #Pauses code executing for 2 seconds
     return
 
 
