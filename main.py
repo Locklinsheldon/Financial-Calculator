@@ -18,4 +18,8 @@ from pie_charts import pie_charts
 def main():
     print('This is a financial Calculator which can do a ton of things.\n')
     while True:
-        choice = input('Which one would you like to do?:\n\n1. Accounts\n2. Financial Information (Income and Expenses)\n3. Goals\n4. Money Limits\n5. View Pie Charts of Your Data\n6. Exit the program.')
+        choice = input('Which one would you like to do?:\n\n1. Accounts\n2. Financial Information (Income and Expenses)\n3. Goals\n4. Money Limits\n5. View Pie Charts of Your Data\n6. Exit the program.\n\n(1-6): ')
+
+        if choice == '1':
+            while True:
+                account_choice = input("Which one would you like to do?: \n\n1. View an account's  ")

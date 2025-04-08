@@ -4,6 +4,8 @@ import time
 import csv
 
 def view_asset(row): #Allows the user to pick a row and view the assest they would like to.
+    
+    
     assets = {
         "Checkings": row[2],
         "Salary": row[3],
@@ -55,8 +57,9 @@ def view_asset(row): #Allows the user to pick a row and view the assest they wou
 
 
 
-def create_new_account(user): #Creates new account for the user
+def create_new_account(): #Creates new account for the user
     try:
+        user = input('What do you want your username to be?: ')
         password = input("Enter your new password: ")
         checkings = float(input("How much is in your checkings account right now?:\n"))
         salary = float(input('How much do you make per year?:\n'))
