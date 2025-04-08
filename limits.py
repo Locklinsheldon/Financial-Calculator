@@ -55,13 +55,16 @@ def expense_managment():
         expense_managment()
 
 def limit_managment():
-    choice = input("1. set budget limit, 2. compare expenses or 3. add an expense to be compared? (enter a number): ")
-    if choice == "1":
-        set_limits()
-    elif choice == "2":
-        compare_limits()
-    elif choice == "3":
-        expense_managment()
-    else:
-        print("that is not an option")
-        limit_managment()
+    while True:
+        choice = input("Which one would you like to do?:\n\n1. set budget limit\n2. compare expenses\n3. add an expense to be compared?\n4. Go back\n\n(enter a number): ")
+        if choice == "1":
+            set_limits()
+        elif choice == "2":
+            compare_limits()
+        elif choice == "3":
+            expense_managment()
+        elif choice == '4':
+            break
+        else:
+            print("that is not an option")
+            limit_managment()

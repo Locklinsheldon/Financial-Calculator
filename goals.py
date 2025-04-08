@@ -66,13 +66,16 @@ def track_goals():
         print("you have $", gap, "left before you reach the", item[0], "goal of $", item[1])
 
 def goal_managment():
-    choice = input("1. set a savings goal, 2. put money towards a goal or 3. track progress towards a goal? (enter a number): ")
-    if choice == "1":
-        set_goals()
-    elif choice == "2":
-        advance_goals()
-    elif choice == "3":
-        track_goals()
-    else:
-        print("that is not an option")
-        goal_managment()
+    while True:
+        choice = input("Which one would you like to do?:\n\n1. set a savings goal\n2. put money towards a goal\n3. track progress towards a goal?\n4. Go back\n\n(enter a number): ")
+        if choice == "1":
+            set_goals()
+        elif choice == "2":
+            advance_goals()
+        elif choice == "3":
+            track_goals()
+        elif choice == '4':
+            break
+        else:
+            print("that is not an option")
+            goal_managment()

@@ -2,18 +2,11 @@
 
 from accounts import view_asset
 from accounts import create_new_account
-from display_info import display_csv
-from expense import expense
 from financial_info_main import financial_info_main
 from goals import goal_managment
-from goals import set_goals
-from goals import track_goals
-from goals import advance_goals
-from income import income
 from limits import limit_managment
-from limits import set_limits
-from limits import compare_limits
-from pie_charts import pie_charts
+from pie_charts import 
+
 
 def main():
     print('This is a financial Calculator which can do a ton of things.\n')
@@ -22,4 +15,19 @@ def main():
 
         if choice == '1':
             while True:
-                account_choice = input("Which one would you like to do?: \n\n1. View an account's  ")
+                account_choice = input("Which one would you like to do?:\n\n1. View an account's information\n2. Create a new account\n3. Go back\n\n(1 or 2): ")
+                if account_choice == '1':
+                    view_asset()
+                elif account_choice == '2':
+                    create_new_account()
+                elif account_choice == '3':
+                    break
+                else:
+                    print('Incorrect option, try again.')
+        elif choice == '2':
+            financial_info_main()
+        elif choice == '3':
+            goal_managment()
+        elif choice == '4':
+            limit_managment()
+        

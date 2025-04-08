@@ -3,8 +3,29 @@
 import time
 import csv
 
-def view_asset(row): #Allows the user to pick a row and view the assest they would like to.
-    
+def view_asset(): #Allows the user to pick a row and view the assest they would like to.
+    with open("financial_data.csv", "r") as csvfile:
+        file = csv.reader(csvfile)
+        rows = []
+        
+        for i, line in enumerate(file):
+            print(f'{i+1}: {line[0]}')
+            rows.append(line)
+
+        try:
+            row = int(input('\nEnter the number that corresponds with the username you want: '))
+            if 0 <= row < len(rows):
+                account_pass = input(f'What is the password of {row[0]}?: ')
+
+                if account_pass == row[1]:
+                    print('Correct password!')
+                else:
+                    print('Incorrect password.')
+            else:
+                print('Invalid number.')
+
+        except ValueError:
+            print('Type a number please.')
     
     assets = {
         "Checkings": row[2],
