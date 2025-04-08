@@ -3,97 +3,120 @@ import csv
 from accounts import create_new_account, view_asset
 import matplotlib.pyplot as plt
 
-def pie_charts(expense): #Charts the given data based on expense category into a pie chart
-    #Get user data and expense category
-    result = get_info
+def pie_charts():
+    result = get_info()
+    if not result:
+        print("No data returned. Exiting pie chart function.")
+        return
+
     expense = len(result)
-    # Define expense categories by how many values are returned by get_info()
+
     if expense == 9:
         label = 'Budgeting'
         categories = ['Savings', 'House', 'Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone', 'Pet']
-        one, two, three, four, five, six, seven, eight, nine = result
-        expenses = [one, two, three, four, five, six, seven, eight, nine]
     elif expense == 6:
         label = 'Services'
-        categories = ['Utilities' ,'Insurance', 'food', 'Entertainment','Healthcare','Phone']
-        one, two, three, four, five, six = result
-        expenses = [one, two, three, four, five, six]
-    elif expense == 12:
+        categories = ['Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone']
+    elif expense == 12 or expense == 11:
         label = 'All'
-        categories = ['Checkings','Salary','Goal','Savings', 'House', 'Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone', 'Pet']
-        one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve = result
-        expenses = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve]
-    else: #error handling
-        print("Unexpected error occured, cannot create pie chart.")
+        categories = ['Checkings', 'Salary', 'Goal', 'Savings', 'House', 'Utilities', 'Insurance', 'Food', 'Entertainment', 'Healthcare', 'Phone']
+        if expense == 12:
+            categories.append('Pet')
+    else:
+        print("Unexpected error occurred, cannot create pie chart.")
         return
-    
-    # Plotting the pie chart
+
+    # Create an "explode" list to separate large slices
+    explode = [0.05 if value > sum(result) * 0.2 else 0 for value in result]
+
+    # Hide tiny slices
+    def autopct_format(pct):
+        return f'{pct:.2f}%' if pct > 3 else ''
+
+    # Plot the pie chart
     fig, ax = plt.subplots()
-    ax.pie(expenses, labels=categories, autopct='%1.2f%%') #Makes pie charts and displays the percentages up to the 2nd decimal.
+    ax.pie(
+        result,
+        labels=categories,
+        autopct=autopct_format,
+        explode=explode,
+        startangle=90,
+        wedgeprops={'edgecolor': 'black'}
+    )
+    ax.legend(categories, title="Categories", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
     plt.title(f"Expense: {label}")
+    plt.axis('equal')
+    plt.tight_layout()
     plt.show()
-    return
 
 
-def get_info(): #Gathers info from the user on what kind of things they would like
-    found=False
-    user = input('What is the name you signed up with, or wish to sign up with?:\n').strip()
-    
-    # Check if the user already exists in the file
-    with open('finacial_data.csv', 'r') as file:
-        reader = csv.reader(file)
-        data = list(reader)
+def get_info():
+    user = input('Enter your username:\n').strip()
+    found = False
+    user_row = None
 
-        # Search for the user
-        for row in data:
-            try:
-                if row[0] == user:
-                    found= True
-                    password = input("What is your password?:\n") #If the user exists, check password
+    try:
+        with open('financial_data.csv', 'r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip header
+            data = list(reader)
+
+            for row in data:
+                if row and row[0] == user:
+                    password = input("Enter your password:\n").strip()
                     if row[1] == password:
                         print("Login successful!")
+                        found = True
+                        user_row = row
                         break
                     else:
                         print("Incorrect password.")
-                        return
-            except:
-                pass
-        if found != True: #If the users account isn't found then it will not be marked, 'True'. Also prompts user to create a new account
-            print("Account not found.")
-            create_account = input("Would you like to create a new account?\n1) Yes\n2) No\n")
-            if create_account.lower() == 'yes':
-                create_new_account(user)
-                get_info()
-            elif create_account.lower() == 'no':
-                print("Got it. Exiting...\n")
-                return
-            else:
-                print('Please choose a valid answer. (Did you make sure to type in the corresponding number?)\n')
-                return
-            
-    ask = input('Would you like to get a pie chart of your data?\n1) Yes\n2) No\n')
+                        return None
+    except FileNotFoundError:
+        print("Error: 'finacial_data.csv' file not found.")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
+
+    if not found:
+        print("Account not found.")
+        create_account = input("Create a new account?\n1) Yes\n2) No\n").strip()
+        if create_account == '1':
+            create_new_account(user)
+            return get_info()
+        else:
+            print("Exiting...")
+            return None
+
+    ask = input('Would you like to get a pie chart of your data?\n1) Yes\n2) No\n').strip()
     if ask == '1':
-        choice = input('What expense would you like the pie chart for?\n1) Budgeting\n2) Services\n3) ALL\n')
-        if choice == '1':
-            return [float(i) for i in row[5:13]]
-        elif choice == '2':
-            return [float(i) for i in row[7:12]]
-        elif choice == '3':
-            return [float(i) for i in row[2:13]]
-        else:
-            print('Please choose a valid choice.\n')
-            return
+        choice = input('What expense category?\n1) Budgeting\n2) Services\n3) ALL\n').strip()
+        try:
+            if choice == '1':
+                return [float(i) for i in user_row[5:14]]  # Savings to Pet
+            elif choice == '2':
+                return [float(i) for i in user_row[7:13]]  # Utilities to Phone
+            elif choice == '3':
+                return [float(i) for i in user_row[2:14]]  # Checkings to Pet
+            else:
+                print('Invalid choice.')
+                return None
+        except (IndexError, ValueError) as e:
+            print(f"Error reading financial data: {e}")
+            return None
     elif ask == '2':
-        print('Please choose the corresponding NUMBER.')
-        option = input("Got it. Would you like to view a specific assest?\n1) Yes\n2) No\n")
+        option = input("Would you like to view a specific asset?\n1) Yes\n2) No\n").strip()
         if option == '1':
-            view_asset(row)
-        elif option == '2':
-            print("Exiting...\n")
-            return
+            view_asset(user_row)
         else:
-            print('Please choose a valid choice. (Did you make sure to type in the corresponding number?)\n')
-            return
+            print("Exiting...")
+        return None
     else:
-        print('Please choose a valid answer. (Did you make sure to type in the corresponding number?)\n')
-        return
+        print('Invalid input.')
+        return None
+
+
+# Optional: run pie_charts automatically
+if __name__ == "__main__":
+    pie_charts()
