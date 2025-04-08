@@ -28,6 +28,3 @@ def display_csv():
         print("The file doesn't exist.")
     except Exception as e:
         print(f"An error occurred: {e}")
-
-# Run the function
-display_csv()
