@@ -1,3 +1,5 @@
+# Income Tracking, Connor Pavicic
+
 import csv
 from datetime import datetime
 

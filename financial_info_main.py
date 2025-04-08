@@ -1,3 +1,5 @@
+#Financial info main, Connor Pavicic
+
 from income import income
 from expense import expense
 from display_info import display_csv

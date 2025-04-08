@@ -1,3 +1,5 @@
+#Expenses tracking, Connor Pavicic
+
 import csv
 from datetime import datetime
 
