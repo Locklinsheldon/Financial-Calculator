@@ -19,14 +19,14 @@ def set_limits():
 def compare_limits():
     limits = []
 
-    with open("my_part/limits.csv", "r", newline="") as file:
+    with open("my_part/limits.csv", "r") as file:
         reader = csv.reader(file)
         for row in reader:
             limits.append([row[0],float(row[1])])
     
     expenses = []
 
-    with open("my_part/expenses.csv", "r", newline="") as file:
+    with open("my_part/expenses.csv", "r") as file:
         reader = csv.reader(file)
         for row in reader:
             expenses.append([row[0],float(row[1])])
