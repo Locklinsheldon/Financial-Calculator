@@ -1,7 +1,9 @@
 # Eli Robison, Goals
 
+# statment that lets csv files work
 import csv
 
+# function that lets the user make a new goal
 def set_goals():
     try:
         goal_for = input("enter what what you want the name of this goal to be: ")
@@ -12,8 +14,10 @@ def set_goals():
             writer.writerow(goal)
     except:
         print("you must enter a number")
+        # statment that makes it so the code runs again if an error happens
         set_goals()
 
+# function that lets the user put money towards a goal
 def advance_goals():
     goals = []
 
@@ -51,8 +55,10 @@ def advance_goals():
                     writer.writerow(item)
     except:
         print("you must enter a number")
+        # statment that makes it so the code runs again if an error happens
         advance_goals()
 
+# function that lets the user track how much is left before they reach their goals
 def track_goals():
     goals = []
 
@@ -65,7 +71,9 @@ def track_goals():
         gap = item[1] - item[2]
         print("you have $", gap, "left before you reach the", item[0], "goal of $", item[1])
 
+# function that lets the user choose what they want to do
 def goal_managment():
+    # loop that makes sure the program continues until the user is done
     while True:
         choice = input("Which one would you like to do?:\n\n1. set a savings goal\n2. put money towards a goal\n3. track progress towards a goal?\n4. Go back\n\n(enter a number): ")
         if choice == "1":
@@ -78,4 +86,5 @@ def goal_managment():
             break
         else:
             print("that is not an option")
-            goal_managment()
+            # statment that makes it so the code goes to the next iteration if the use enters something that is not an option
+            continue

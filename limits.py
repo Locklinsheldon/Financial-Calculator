@@ -1,7 +1,9 @@
 # Eli Robison, Limits
 
+# statment that lets csv files work
 import csv
 
+# function that lets the user set new limits
 def set_limits():
     try:
         num_limits = int(input("enter the number of limits you want to set: "))
@@ -14,8 +16,10 @@ def set_limits():
                 writer.writerow(limit)
     except:
         print("you must enter a number")
+        # statment that makes it so the code runs again if an error happens
         set_limits()
 
+# function that lets the user compare limits to the assosiated expense
 def compare_limits():
     limits = []
 
@@ -26,7 +30,7 @@ def compare_limits():
     
     expenses = []
 
-    with open("my_part/expenses.csv", "r") as file:
+    with open("expenses.csv", "r") as file:
         reader = csv.reader(file)
         for row in reader:
             expenses.append([row[0],float(row[1])])
@@ -42,6 +46,7 @@ def compare_limits():
         if found == 0:
             print("no expense was associated with the", limit, "limit.")
 
+# function that lets the user set expenses to compare
 def expense_managment():
     try:
         expense_for = input("enter what this expense is for: ")
@@ -52,9 +57,12 @@ def expense_managment():
             writer.writerow(expense)
     except:
         print("you must enter a number")
+        # statment that makes it so the code runs again if an error happens
         expense_managment()
 
+# function that lets the user choose what they want to do
 def limit_managment():
+    # loop that makes sure the program continues until the user is done
     while True:
         choice = input("Which one would you like to do?:\n\n1. set budget limit\n2. compare expenses\n3. add an expense to be compared?\n4. Go back\n\n(enter a number): ")
         if choice == "1":
@@ -67,4 +75,5 @@ def limit_managment():
             break
         else:
             print("that is not an option")
-            limit_managment()
+            # statment that makes it so the code goes to the next iteration if the use enters something that is not an option
+            continue
